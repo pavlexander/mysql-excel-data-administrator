@@ -17,6 +17,8 @@ This is the tool that I have created for a personal use and I never use option 1
 
 ### Generating the output file
 
+A new file will be created in the same directory, where Excel file is. 
+
 In case 1:
 
 1. open Excel
@@ -24,6 +26,8 @@ In case 1:
 3. set "file extension" to "csv"
 4. set "use SQL statement.." to "No"
 5. click on "Generate file" button
+
+The file can then be imported in MySQL workbench (*current limitation - for different tables you shall create different files!!*)
 
 In case 2:
 
@@ -33,11 +37,11 @@ In case 2:
 4. set "use SQL statement.." to "Yes"
 5. click on "Generate file" button
 
-A new file will be created in the same directory, where Excel file is. The file can then be imported in MySQL workbench (for different tables you shall create different files!!), or you can run all SQL inserts in PhpMyAdmin, for example.
+With this file - you can run all SQL inserts in PhpMyAdmin, for example.
 
 ### Creating worksheets (tables)
 
-The problem is that you have to know exact columns that you have in tables, when populating the data in Excel. So I created a helper button, which will generate the new "Worksheet" in Excel, along with column names. So you have a metter managing capabilities.
+The problem is that you have to know exact columns that you have in tables, when populating the data in Excel. So I created a helper button, which will generate the new "Worksheet" in Excel, along with column names, so you have a better managing capabilities.
 
 1. go to "Mysql Workbench"
 2. go to diagram view of your table
