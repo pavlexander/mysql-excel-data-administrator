@@ -187,6 +187,12 @@ If insertLine <> "" Then
                     ws.Cells(1, I + 2).Value = "NUMBER"
                 End If
                 
+                ' add validations
+                ws.Cells(1, I + 2).Validation.Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Formula1:="NUMBER"
+                ws.Cells(1, I + 2).Validation.ErrorMessage = "Please select a valid value from the list"
+                ws.Cells(2, I + 2).Validation.Add Type:=xlValidateList, Formula1:="DEFAULT,NULL,1,0"
+                ws.Cells(2, I + 2).Validation.ShowError = False
+                
                 lastColumn = I + 2
                 
                 ws.Cells(1, I + 2).EntireColumn.AutoFit
