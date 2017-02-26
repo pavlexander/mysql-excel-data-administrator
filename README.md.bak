@@ -69,7 +69,7 @@ INSERT INTO `DATABASE`.`TABLE` (`COLUMN1`, `COLUMN2`, ...) VALUES (NULL, NULL, N
 
 ## Contributing
 
-If you are a developer who wants to contribute to the project - after you change the VBA in Excel itself - don't forget to export VBA module into a sepaarte .BAS file and commit it as well, so we keep the track of changes.
+If you are a developer who wants to contribute to the project - after you change the VBA in Excel itself - don't forget to export VBA module into a sepaarte BAS file and commit it as well, so we keep the track of changes.
 
 
 
