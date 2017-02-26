@@ -1,0 +1,2 @@
+INSERT INTO example_table VALUES (1,'{\"en\":\"House\", \"ru\":\"Дом\"}','testing varchar \"abc\"',1,12,DEFAULT);
+INSERT INTO example_table VALUES (2,'{\"en\":\"Moon\", \"ru\":\"Луна\"}','testing varchar \"abc\"',999,14,DEFAULT);
