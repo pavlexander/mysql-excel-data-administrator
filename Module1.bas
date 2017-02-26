@@ -41,7 +41,7 @@ If WS_Count > 1 Then
     
     Open PathName & "\" & FileName & "." & FileExtension For Output Lock Write As #OutputFileNum
 
-    For I = 2 To WS_Count
+    For I = 1 To WS_Count
        ' MsgBox ActiveWorkbook.Worksheets(I).Name
         Set ws = ActiveWorkbook.Worksheets(I)
        
@@ -52,7 +52,7 @@ If WS_Count > 1 Then
             Column_count = ws.UsedRange.Columns.Count
             Row_Count = ws.UsedRange.Rows.Count
             
-            If Row_Count > 3 And Column_count > 1 Then
+            If Row_Count > 3 And Column_count > 2 Then
                 
                 'MsgBox Column_count
                 'MsgBox Row_Count
@@ -60,7 +60,7 @@ If WS_Count > 1 Then
                 For row = 4 To Row_Count
                     insertValues = ""
                     
-                    For col = 1 To Column_count
+                    For col = 2 To Column_count
                         'MsgBox ws.Cells(row, col).Value
                     
                         If ws.Cells(row, col) = "" Then
@@ -144,6 +144,7 @@ Dim closePos As Integer
 Dim midBit As String
 Dim WrdArray() As String
 Dim headerCellValue As String
+Dim lastColumn As Integer
 
 Dim matchesFound As Collection
 Dim tableName As String
@@ -176,23 +177,44 @@ If insertLine <> "" Then
                 headerCellValue = WrdArray(I)
                 headerCellValue = Trim(headerCellValue)
                 headerCellValue = Replace(headerCellValue, "`", "")
-                ws.Cells(3, I + 1).Value = headerCellValue
+                ws.Cells(3, I + 2).Value = headerCellValue
                 
                 If headerCellValue = "id" Then
-                    ws.Cells(1, I + 1).Value = "NUMBER"
+                    ws.Cells(1, I + 2).Value = "NUMBER"
                 ElseIf EndsWith(headerCellValue, "_by") Then
-                    ws.Cells(1, I + 1).Value = "NUMBER"
+                    ws.Cells(1, I + 2).Value = "NUMBER"
                 ElseIf EndsWith(headerCellValue, "_id") Then
-                    ws.Cells(1, I + 1).Value = "NUMBER"
+                    ws.Cells(1, I + 2).Value = "NUMBER"
                 End If
                 
-                ws.Cells(1, I + 1).EntireColumn.AutoFit
-                ws.Cells(1, I + 1).EntireColumn.HorizontalAlignment = xlCenter
+                lastColumn = I + 2
+                
+                ws.Cells(1, I + 2).EntireColumn.AutoFit
+                ws.Cells(1, I + 2).EntireColumn.HorizontalAlignment = xlCenter
             Next I
             
+            ' set first column values
+            ws.Cells(1, 1).Value = ws_main.Range("ROW_TYPE").Value
+            ws.Cells(2, 1).Value = ws_main.Range("DEFAULT_VALUE").Value
+            ws.Cells(3, 1).Value = ws_main.Range("COLUMN_NAME").Value
+            ws.Cells(4, 1).Value = ws_main.Range("DATA_ROWS").Value
+            
+            ' set colors
             ws.Cells(1, 1).EntireRow.Interior.Color = ws_main.Range("COLOR1").Interior.Color '16, 4
             ws.Cells(2, 1).EntireRow.Interior.Color = ws_main.Range("COLOR2").Interior.Color '17, 4
             ws.Cells(3, 1).EntireRow.Interior.Color = ws_main.Range("COLOR3").Interior.Color '18, 4
+            
+            ' set column after which safe to enter any text
+            ws.Cells(1, lastColumn + 1).EntireColumn.Interior.Color = ws_main.Range("AFTER_LAST_COL").Interior.Color
+            
+            ' and additional parameters
+            ws.Cells(1, 1).EntireColumn.AutoFit
+            ws.Cells(1, 1).EntireColumn.HorizontalAlignment = xlRight
+            ws.Cells(1, 1).EntireColumn.Interior.Color = ws_main.Range("ROW_TYPE").Interior.Color
+            
+            ' set borders
+            ws.Cells(3, 1).EntireRow.Borders(xlEdgeBottom).LineStyle = xlContinuous
+            ws.Cells(1, 1).EntireColumn.Borders(xlEdgeRight).LineStyle = xlContinuous
         End If
     End If
 End If
