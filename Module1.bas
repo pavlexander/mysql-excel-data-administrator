@@ -85,8 +85,17 @@ If WS_Count > 1 Then
                                     cellValue = ws.Cells(row, col).Value
                                 End If
                             Else
-                                cellValue = "'" & ws.Cells(row, col).Value & "'"
+                                cellValue = ws.Cells(row, col).Value
+                                
+                                ' escape single quote
+                                cellValue = Replace(cellValue, "'", "\'")
+                                
+                                ' escape double quote
                                 cellValue = Replace(cellValue, """", "\""")
+                                
+                                ' enclose result value into single quotes
+                                cellValue = "'" & cellValue & "'"
+                                
                             End If
                             
                             insertValues = insertValues & (separator & cellValue)
@@ -97,16 +106,18 @@ If WS_Count > 1 Then
                         insertValues = Right$(insertValues, (Len(insertValues) - Len(separator)))
                     End If
                     
-                    InsertsTotal = InsertsTotal + 1
+                    If insertValues <> "" Then
+                        InsertsTotal = InsertsTotal + 1
                     
-                    'MsgBox insertValues
-                    If useStatement = "Yes" Then
-                        insertCommand = "INSERT INTO {tableName} VALUES ({insertValues});"
-                        insertCommand = Replace(insertCommand, "{tableName}", tableName)
-                        insertCommand = Replace(insertCommand, "{insertValues}", insertValues)
-                        Print #OutputFileNum, insertCommand
-                    Else
-                        Print #OutputFileNum, insertValues
+                        'MsgBox insertValues
+                        If useStatement = "Yes" Then
+                            insertCommand = "INSERT INTO {tableName} VALUES ({insertValues});"
+                            insertCommand = Replace(insertCommand, "{tableName}", tableName)
+                            insertCommand = Replace(insertCommand, "{insertValues}", insertValues)
+                            Print #OutputFileNum, insertCommand
+                        Else
+                            Print #OutputFileNum, insertValues
+                        End If
                     End If
 
                 Next row
