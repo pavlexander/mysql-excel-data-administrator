@@ -1,5 +1,4 @@
 # MySQL data administration in Excel
-Excel which allows to administrate data for MySQL tables (or MariaDB, for example)
 
 ## Intro
 
