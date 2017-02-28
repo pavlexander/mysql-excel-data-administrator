@@ -237,6 +237,12 @@ If insertLine <> "" Then
             ws.Cells(1, 1).Validation.Delete
             ws.Cells(2, 1).Validation.Delete
             ws.Cells(3, 1).Validation.Delete
+            
+            'set conditional formatting rule for rows which will be ignored
+            With ws.Range("=$A$1:$Z$1500")
+                .FormatConditions.Add Type:=xlExpression, Formula1:="=INDIRECT(""a""&ROW())=""Ignore Row"""
+                .FormatConditions(.FormatConditions.Count).Interior.Color = ws_main.Range("IGNORE_ROW").Interior.Color
+            End With
         End If
     End If
 End If

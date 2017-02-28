@@ -1,3 +1,4 @@
 INSERT INTO example_table VALUES (1,'{\"en\":\"House\", \"ru\":\"Дом\"}','testing varchar \"abc\"',1,12,DEFAULT);
 INSERT INTO example_table VALUES (2,'{\"en\":\"Moon\", \"ru\":\"Луна\"}','testing varchar \'efg\'',999,14,DEFAULT);
 INSERT INTO example_table VALUES (3,,'0',111,7,DEFAULT);
+INSERT INTO example_table VALUES (4,'this row will not be ignored','1',1);
