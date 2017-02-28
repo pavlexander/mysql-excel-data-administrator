@@ -1,4 +1,4 @@
-# MySQL data administration in Excel
+# SQL data administration in Excel
 
 ## Intro
 
