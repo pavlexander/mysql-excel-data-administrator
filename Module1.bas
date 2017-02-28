@@ -60,7 +60,15 @@ If WS_Count > 1 Then
                 For row = 4 To Row_Count
                     insertValues = ""
                     
-                    For col = 2 To Column_count
+                    For col = 1 To Column_count
+                        If col = 1 Then
+                            If ws.Cells(row, col) = "Ignore Row" Then
+                                Exit For 'don't itterate columns of this row
+                            Else
+                                GoTo ContinueLoop 'skip first column
+                            End If
+                        End If
+                    
                         'MsgBox ws.Cells(row, col).Value
                     
                         If ws.Cells(row, col) = "" Then
@@ -100,6 +108,8 @@ If WS_Count > 1 Then
                             
                             insertValues = insertValues & (separator & cellValue)
                         End If
+                        
+ContinueLoop:
                     Next col
                     
                     If Len(insertValues) <> 0 Then
@@ -203,7 +213,7 @@ If insertLine <> "" Then
             ws.Cells(1, 1).Value = ws_main.Range("ROW_TYPE").Value
             ws.Cells(2, 1).Value = ws_main.Range("DEFAULT_VALUE").Value
             ws.Cells(3, 1).Value = ws_main.Range("COLUMN_NAME").Value
-            ws.Cells(4, 1).Value = ws_main.Range("DATA_ROWS").Value
+            'ws.Cells(4, 1).Value = ws_main.Range("DATA_ROWS").Value
             
             ' set colors
             ws.Cells(1, 1).EntireRow.Interior.Color = ws_main.Range("COLOR1").Interior.Color '16, 4
@@ -221,6 +231,12 @@ If insertLine <> "" Then
             ' set borders
             ws.Cells(3, 1).EntireRow.Borders(xlEdgeBottom).LineStyle = xlContinuous
             ws.Cells(1, 1).EntireColumn.Borders(xlEdgeRight).LineStyle = xlContinuous
+            
+            'set validation for first column
+            ws.Cells(1, 1).EntireColumn.Validation.Add Type:=xlValidateList, Formula1:="Ignore Row"
+            ws.Cells(1, 1).Validation.Delete
+            ws.Cells(2, 1).Validation.Delete
+            ws.Cells(3, 1).Validation.Delete
         End If
     End If
 End If
